@@ -1,0 +1,15 @@
+C:\Foundora\IdentityService\IdentityService.Application\bin\Debug\net8.0\IdentityService.Application.deps.json
+C:\Foundora\IdentityService\IdentityService.Application\bin\Debug\net8.0\IdentityService.Application.dll
+C:\Foundora\IdentityService\IdentityService.Application\bin\Debug\net8.0\IdentityService.Application.pdb
+C:\Foundora\IdentityService\IdentityService.Application\bin\Debug\net8.0\IdentityService.Domain.dll
+C:\Foundora\IdentityService\IdentityService.Application\bin\Debug\net8.0\IdentityService.Domain.pdb
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\IdentityService.Application.csproj.AssemblyReference.cache
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\IdentityService.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\IdentityService.Application.AssemblyInfoInputs.cache
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\IdentityService.Application.AssemblyInfo.cs
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\IdentityService.Application.csproj.CoreCompileInputs.cache
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\Identity.52144512.Up2Date
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\IdentityService.Application.dll
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\refint\IdentityService.Application.dll
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\IdentityService.Application.pdb
+C:\Foundora\IdentityService\IdentityService.Application\obj\Debug\net8.0\ref\IdentityService.Application.dll
