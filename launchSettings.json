@@ -3,10 +3,10 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
-      "serviceActions": {
-        "identityservice.api": "StartWithoutDebugging",
-        "identityservice.db": "StartWithoutDebugging"
-      }
+        "serviceActions": {
+            "identityservice.api": "StartWithoutDebugging",
+            "foundora.db": "StartWithoutDebugging"
+        }
     }
   }
 }
