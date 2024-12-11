@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IdentityService.Domain.Entities
 {
@@ -8,7 +9,7 @@ namespace IdentityService.Domain.Entities
         public string Username { get; private set; }
         public string Email { get; private set; }
         public string PasswordHash { get; private set; }
-        public List<string> Roles { get; private set; } = new();
+        public ICollection<UserRole> UserRoles { get; private set; } = new List<UserRole>();
 
         private User() { }
 
@@ -20,12 +21,22 @@ namespace IdentityService.Domain.Entities
             PasswordHash = passwordHash;
         }
 
-        public void AddRole(string role)
+        public void AddRole(Role role)
         {
-            if (!Roles.Contains(role))
-                Roles.Add(role);
+            if (UserRoles.All(ur => ur.RoleId != role.Id))
+            {
+                UserRoles.Add(new UserRole(this, role));
+            }
         }
-
-        public bool HasRole(string role) => Roles.Contains(role);
+        public void RemoveRole(Role role)
+        {
+            var userRole = UserRoles.FirstOrDefault(ur => ur.RoleId == role.Id);
+            if (userRole != null)
+            {
+                UserRoles.Remove(userRole);
+            }
+        }
+        public bool HasRole(string roleName) =>
+            UserRoles.Any(ur => ur.Role.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
     }
 }

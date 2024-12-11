@@ -1,5 +1,6 @@
 using AspNetCoreRateLimit;
 using Duende.IdentityServer.Models;
+using IdentityService.Application.Common.Interfaces;
 using IdentityService.Application.CQRS.Commands.Handlers;
 using IdentityService.Application.Interfaces;
 using IdentityService.Application.Settings;
@@ -10,12 +11,14 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console() 
-    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+    .ReadFrom.Configuration(builder.Configuration)
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
-builder.Host.UseSerilog();
+builder.Host.UseSerilog(); // Set Serilog as the logging provider
 
 builder.Services.AddOptions<IpRateLimitOptions>()
     .Bind(builder.Configuration.GetSection("IpRateLimiting"));
@@ -47,6 +50,8 @@ builder.Services.AddIdentityServer()
 builder.Services.AddHealthChecks();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommandHandler).Assembly));
 builder.Services.AddOptions<JwtSettings>()
     .Bind(builder.Configuration.GetSection("JwtSettings"))
@@ -57,8 +62,11 @@ builder.Services.AddOptions<JwtSettings>()
         "Invalid JwtSettings configuration");
 
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.WriteIndented = true; // Optional: Makes the JSON output more readable
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -68,6 +76,7 @@ var app = builder.Build();
 app.MapHealthChecks("/health");
 
 app.UseIpRateLimiting();
+app.UseSerilogRequestLogging();
 
 app.UseIdentityServer();
 app.UseAuthentication();

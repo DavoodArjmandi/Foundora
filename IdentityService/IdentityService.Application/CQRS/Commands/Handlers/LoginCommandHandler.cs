@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace IdentityService.Application.CQRS.Commands.Handlers
 {
@@ -36,7 +37,7 @@ namespace IdentityService.Application.CQRS.Commands.Handlers
                 new Claim(ClaimTypes.Name, user.Username)
             };
 
-            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role)));
+            claims.AddRange(user.UserRoles.Select(ur => new Claim(ClaimTypes.Role, ur.Role.Name)));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
