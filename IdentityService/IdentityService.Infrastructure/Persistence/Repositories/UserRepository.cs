@@ -13,6 +13,14 @@ namespace IdentityService.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
+        public async Task<List<User>> GetAllAsync()
+        {
+            return await _context.Users
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .ToListAsync();
+        }
+
         public async Task<User> GetByIdAsync(Guid userId)
         {
             return await _context.Users
@@ -34,6 +42,12 @@ namespace IdentityService.Infrastructure.Persistence.Repositories
             await _context.Users.AddAsync(user);
         }
 
+        public async Task DeleteAsync(Guid id)
+        {
+            var user = _context.Users.Find(id);
+            _context.Users.Remove(user);
+            SaveChangesAsync();
+        }
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

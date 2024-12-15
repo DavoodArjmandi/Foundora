@@ -8,12 +8,12 @@ namespace IdentityService.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RolesController : ControllerBase
+    public class RoleController : ControllerBase
     {
         private readonly IRoleRepository _roleRepository;
         private readonly IUserRepository _userRepository;
 
-        public RolesController(IRoleRepository roleRepository, IUserRepository userRepository)
+        public RoleController(IRoleRepository roleRepository, IUserRepository userRepository)
         {
             _roleRepository = roleRepository;
             _userRepository = userRepository;
@@ -36,13 +36,16 @@ namespace IdentityService.Api.Controllers
 
         // 2. Create a new role
         [HttpPost]
-        public async Task<IActionResult> CreateRole([FromBody] string roleName)
+        public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequestDto request)
         {
-            var existingRole = await _roleRepository.GetByNameAsync(roleName);
+            if (string.IsNullOrWhiteSpace(request.RoleName))
+                return BadRequest("RoleName cannot be empty.");
+
+            var existingRole = await _roleRepository.GetByNameAsync(request.RoleName);
             if (existingRole != null)
                 return Conflict("Role already exists.");
 
-            var role = new Role(roleName);
+            var role = new Role(request.RoleName);
             await _roleRepository.AddAsync(role);
             await _roleRepository.SaveChangesAsync();
 

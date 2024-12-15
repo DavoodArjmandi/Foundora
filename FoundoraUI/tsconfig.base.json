@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@foundora-ui/admin-ui": ["libs/ui/admin-ui/src/index.ts"],
+      "@foundora-ui/auth-ui": ["libs/ui/auth-ui/src/index.ts"],
+      "@foundora-ui/data-access/admin": ["libs/data-access/admin/src/index.ts"],
+      "@foundora-ui/data-access/auth": ["libs/data-access/auth/src/index.ts"],
+      "@foundora-ui/data-access/shared": [
+        "libs/data-access/shared/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
